@@ -48,12 +48,29 @@ def reverse():
     m.high()
   for m in fmotors:
     m.low()
-  
 
+def stop():
+  for m in rmotors:
+    m.low()
+  for m in fmotors:
+    m.low()
+
+def data():
+  a=input()
+  dat=a.split('_')
+  if dat[0] == '01':
+    return int(dat[1]),int(dat[2])
+  else:
+    return 0,10
+  
 while True:
-  direction(60)
-  forward()
-  utime.sleep(5)
-  direction(-60)
-  reverse()
-  utime.sleep(5)
+  deg,di = data()
+  if (di==10):
+    continue
+  direction(deg)
+  if (di == 1):
+    forward()
+  if (di == 2):
+    reverse()
+  if (di == 0):
+    stop()
