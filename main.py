@@ -27,11 +27,33 @@ def servo(deg):
   if ((deg>=0)&(deg<=180)):
     return(1500+ int(deg*36.11111))
 
-motors = [FLF,FLB,FRF,FRB,RLF,RLB,RRF,RRB]
+fmotors = [FLF,RLF,FRF,RRF]
+rmotors = [FLB,RLB,FRB,RRB]
+
+def direction(deg):
+  de=int(deg/2)
+  FLD.duty_u16(servo(90-deg))
+  RLD.duty_u16(servo(90-de))
+  FRD.duty_u16(servo(90+deg))
+  RRD.duty_u16(servo(90+de))
+
+def forward():
+  for m in fmotors:
+    m.high()
+  for m in rmotors:
+    m.low()
+
+def reverse():
+  for m in rmotors:
+    m.high()
+  for m in fmotors:
+    m.low()
+  
 
 while True:
-  for i in range(0,8,1):
-    motors[i].high()
-    utime.sleep(2)
-    motors[i].low()
-  print("Cycle is completed")
+  direction(60)
+  forward()
+  utime.sleep(5)
+  direction(-60)
+  reverse()
+  utime.sleep(5)
