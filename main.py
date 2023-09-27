@@ -59,7 +59,11 @@ def data():
   a=input()
   dat=a.split('_')
   if dat[0] == '01':
-    return int(dat[1]),int(dat[2])
+    if dat[1] =='C':
+        print('01_s_')
+        return 0,10
+    else:
+        return int(dat[1]),int(dat[2])
   else:
     return 0,10
   
@@ -74,3 +78,4 @@ while True:
     reverse()
   if (di == 0):
     stop()
+
